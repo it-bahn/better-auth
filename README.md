@@ -31,9 +31,9 @@ This projext is a SaaS running in a serverless envoirment in google cloud platfo
 
 ## Live demo
 
-[Live Api Endpoints](https://better-auth-o2k3wv2fsq-uc.a.run.app)
+[Live Api Endpoints](https://techonomy-labs-o2k3wv2fsq-uc.a.run.app/api/v1/)
 
-[Documentation](https://documenter.getpostman.com/view/21725756/UzBvH45K)
+[Documentation](https://documenter.getpostman.com/view/21725756/UzJETKie)
 
 [Join The Support Team](https://app.getpostman.com/join-team?invite_code=40a4a16810b9f88648390722e98b8e79)
 
