@@ -2,6 +2,7 @@
 This projext is a SaaS running in a serverless envoirment in google cloud platform. It is a authentification service written in go lang and built with docker 
 <br/
 
+<div align="center">       
 <img src="https://img.shields.io/github/workflow/status/techonomylabs/better-auth/Docker?label=GCP%20CLOUD%20RUN&style=for-the-badge"/>
 
 [![Docker](https://github.com/techonomylabs/better-auth/actions/workflows/deploy-to-cloud-run.yml/badge.svg)](https://github.com/techonomylabs/better-auth/actions/workflows/deploy-to-cloud-run.yml)
@@ -12,6 +13,7 @@ This projext is a SaaS running in a serverless envoirment in google cloud platfo
 </a>
 <img src="https://img.shields.io/github/languages/count/techonomylabs/better-auth?style=flat-square"/>
 
+</div>
 
 ## What's Inside
 
