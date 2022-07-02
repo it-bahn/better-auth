@@ -28,6 +28,7 @@ func (S *Session) Create(ctx *context.Context, auth AuthEmail, user User) map[st
 	client := db.InitDB(*ctx)
 	defer client.DisconnectDB()
 	collection := client.GetCollection("sessions")
+	S.AuthData.Password = utils.GetHash([]byte(S.AuthData.Password))
 	res, err := collection.InsertOne(*ctx, S)
 	if err != nil {
 		return CreateResponse("failure", "error creating session", err.Error())

@@ -20,8 +20,8 @@ func (U *User) Create(ctx *context.Context) map[string]interface{} {
 		return CreateResponse("failure", "error inserting user to database", err.Error())
 	}
 	return CreateResponse("success", "success inserting user to database", map[string]interface{}{
-		"user_id_from_result": result.InsertedID.(primitive.ObjectID).Hex(),
-		"user_id":             U.UserId,
+		"_id":     result.InsertedID.(primitive.ObjectID).Hex(),
+		"user_id": U.UserId,
 	})
 }
 
@@ -33,7 +33,7 @@ func (U *User) Update(ctx *context.Context, userID string) map[string]interface{
 	if err != nil {
 		return CreateResponse("failure", "error wrong user id", err.Error())
 	}
-	filter := bson.M{"_id": bson.M{"$eq": id}}
+	filter := bson.M{"user_id": bson.M{"$eq": id}}
 
 	client := db.InitDB(*ctx)
 	defer client.DisconnectDB()
@@ -57,10 +57,16 @@ func (U *User) Delete(ctx *context.Context, userID string) map[string]interface{
 	if err != nil {
 		return CreateResponse("failure", "error wrong user id", err.Error())
 	}
-	filter := bson.M{"_id": bson.M{"$eq": id}}
+	filter := bson.M{"user_id": bson.M{"$eq": id}}
 	client := db.InitDB(*ctx)
 	defer client.DisconnectDB()
-	collection := client.GetCollection("users")
+	collection := client.GetCollection("users_deleted")
+	U.Base.GetBaseDeleted()
+	_, err = collection.InsertOne(*ctx, U)
+	if err != nil {
+		return CreateResponse("failure", "error deleting user to database", err.Error())
+	}
+	collection = client.GetCollection("users")
 	result, err := collection.DeleteOne(*ctx, filter)
 	if err != nil {
 		return CreateResponse("failure", "error deleting user to database", err.Error())

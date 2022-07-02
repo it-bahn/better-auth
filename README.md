@@ -3,8 +3,7 @@ This projext is a SaaS running in a serverless envoirment in google cloud platfo
 <br/>
 
 
-      
-<p align="center"> 
+<div align="center">       
 <img src="https://img.shields.io/github/workflow/status/techonomylabs/better-auth/Docker?label=GCP%20CLOUD%20RUN&style=for-the-badge"/>
 
 [![Docker](https://github.com/techonomylabs/better-auth/actions/workflows/deploy-to-cloud-run.yml/badge.svg)](https://github.com/techonomylabs/better-auth/actions/workflows/deploy-to-cloud-run.yml)
@@ -14,7 +13,8 @@ This projext is a SaaS running in a serverless envoirment in google cloud platfo
 <img src="https://img.shields.io/github/issues/techonomylabs/better-auth" />
 </a>
 <img src="https://img.shields.io/github/languages/count/techonomylabs/better-auth?style=flat-square"/>
-</p>
+
+</div>
 
 
 ## What's Inside
