@@ -39,8 +39,9 @@ func RegisterHandler(w http.ResponseWriter, req *http.Request) {
 }
 
 func LoginHandler(w http.ResponseWriter, req *http.Request) {
+	origin := req.Header.Get("Origin")
 	header := w.Header()
-	header.Add("Access-Control-Allow-Origin", "0.0.0.0/0")
+	header.Add("Access-Control-Allow-Origin", origin)
 	w.Header().Set("Content-Type", "application/json")
 	var response map[string]interface{}
 	var authE auth.AuthEmail
@@ -96,8 +97,9 @@ func LoginHandler(w http.ResponseWriter, req *http.Request) {
 }
 
 func LogoutHandler(w http.ResponseWriter, req *http.Request) {
+	origin := req.Header.Get("Origin")
 	header := w.Header()
-	header.Add("Access-Control-Allow-Origin", "0.0.0.0/0")
+	header.Add("Access-Control-Allow-Origin", origin)
 	w.Header().Set("Content-Type", "application/json")
 	var response map[string]interface{}
 	var sessionID = req.URL.Query().Get("id")
