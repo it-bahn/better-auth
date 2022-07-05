@@ -14,6 +14,8 @@ import (
 )
 
 func RegisterHandler(w http.ResponseWriter, req *http.Request) {
+	header := w.Header()
+	header.Add("Access-Control-Allow-Origin", "*")
 	var response map[string]interface{}
 	var incoming users.User
 	ctx := context.Background()
@@ -39,6 +41,8 @@ func RegisterHandler(w http.ResponseWriter, req *http.Request) {
 }
 
 func LoginHandler(w http.ResponseWriter, req *http.Request) {
+	header := w.Header()
+	header.Add("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Content-Type", "application/json")
 	var response map[string]interface{}
 	var authE auth.AuthEmail
@@ -94,6 +98,8 @@ func LoginHandler(w http.ResponseWriter, req *http.Request) {
 }
 
 func LogoutHandler(w http.ResponseWriter, req *http.Request) {
+	header := w.Header()
+	header.Add("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Content-Type", "application/json")
 	var response map[string]interface{}
 	var sessionID = req.URL.Query().Get("id")
