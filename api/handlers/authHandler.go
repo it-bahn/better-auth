@@ -39,9 +39,11 @@ func RegisterHandler(w http.ResponseWriter, req *http.Request) {
 }
 
 func LoginHandler(w http.ResponseWriter, req *http.Request) {
-	origin := req.Header.Get("Origin")
-	header := w.Header()
-	header.Add("Access-Control-Allow-Origin", origin)
+	if origin := req.Header.Get("Origin"); origin != "" {
+		w.Header().Set("Access-Control-Allow-Origin", origin)
+		w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+		w.Header().Set("Access-Control-Allow-Headers", "Accept, Accept-Language, Content-Type, Authorization")
+	}
 	w.Header().Set("Content-Type", "application/json")
 	var response map[string]interface{}
 	var authE auth.AuthEmail
@@ -97,9 +99,11 @@ func LoginHandler(w http.ResponseWriter, req *http.Request) {
 }
 
 func LogoutHandler(w http.ResponseWriter, req *http.Request) {
-	origin := req.Header.Get("Origin")
-	header := w.Header()
-	header.Add("Access-Control-Allow-Origin", origin)
+	if origin := req.Header.Get("Origin"); origin != "" {
+		w.Header().Set("Access-Control-Allow-Origin", origin)
+		w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+		w.Header().Set("Access-Control-Allow-Headers", "Accept, Accept-Language, Content-Type, Authorization")
+	}
 	w.Header().Set("Content-Type", "application/json")
 	var response map[string]interface{}
 	var sessionID = req.URL.Query().Get("id")
