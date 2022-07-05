@@ -19,7 +19,6 @@ func LoadConfig(flag string) string {
 	if flag == "pass" {
 		/* statement(s) will execute if the boolean expression is true */
 		uri := GetEnv("MONGO_URI")
-		//log.Printf("MONGO_URI %v", uri)
 		return uri
 	}
 	if flag == "pem" {

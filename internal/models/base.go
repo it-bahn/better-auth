@@ -27,32 +27,24 @@ type Address struct {
 	Country string `json:"country,omitempty" bson:"country,omitempty"`
 }
 
-func (A *Address) IsEmpty() bool {
+func (A *Address) IsEmptyMandatory() bool {
 	return A.Street == "" || A.City == "" || A.State == "" || A.Zip == "" || A.Country == ""
 }
 func (A *Address) IsEmptyEntirely() bool {
 	return A.Street == "" && A.City == "" && A.State == "" && A.Zip == "" && A.Country == ""
 }
-func (D *DateOfBirth) IsEmpty() bool {
+func (D *DateOfBirth) IsEmptyMandatory() bool {
 	return D.Day == 0 || D.Month == 0 || D.Year == 0
 }
 func (D *DateOfBirth) IsEmptyEntirely() bool {
 	return D.Day == 0 && D.Month == 0 && D.Year == 0
 }
 
-func (B *BaseObject) IsEmpty() bool {
+func (B *BaseObject) IsEmptyMandatory() bool {
 	return B.BaseID.Hex() == "" || B.CreatedAt == "" || B.UpdatedAt == ""
 }
 func (B *BaseObject) IsEmptyEntirely() bool {
 	return B.BaseID.Hex() == "" && B.CreatedAt == "" && B.UpdatedAt == "" && B.Deleted == false
-}
-
-func (B *BaseObject) ToMap() map[string]interface{} {
-	return map[string]interface{}{
-		"base_id":    B.BaseID,
-		"created_at": B.CreatedAt,
-		"updated_at": B.UpdatedAt,
-	}
 }
 
 func (B *BaseObject) GetBaseCreated() {
@@ -63,16 +55,32 @@ func (B *BaseObject) GetBaseCreated() {
 
 }
 func (B *BaseObject) GetBaseUpdated() {
+	B.BaseID = primitive.NewObjectID()
 	B.UpdatedAt = time.Now().Format("2006-01-02 15:04:05")
 }
 func (B *BaseObject) GetBaseDeleted() {
+	B.BaseID = primitive.NewObjectID()
 	B.UpdatedAt = time.Now().Format("2006-01-02 15:04:05")
 	B.Deleted = true
 }
-
-func (D *DateOfBirth) GetDateOfBirth() primitive.D {
+func (B *BaseObject) GetAsBsonDocument() primitive.D {
 	var res primitive.D
-	log.Printf("DateOfBirth: %v", D)
+	if B.BaseID.Hex() != "" {
+		log.Printf("Updating BaseID.... %v", B.BaseID.Hex())
+		res = append(res, primitive.E{Key: "base_id", Value: B.BaseID})
+	}
+	if B.CreatedAt != "" {
+		log.Printf("Updating CreatedAt.... %v", B.CreatedAt)
+		res = append(res, primitive.E{Key: "created_at", Value: B.CreatedAt})
+	}
+	if B.UpdatedAt != "" {
+		log.Printf("Updating UpdatedAt.... %v", B.UpdatedAt)
+		res = append(res, primitive.E{Key: "updated_at", Value: B.UpdatedAt})
+	}
+	return res
+}
+func (D *DateOfBirth) GetDOBAsBsonDocument() primitive.D {
+	var res primitive.D
 	if D.Day != 0 {
 		log.Printf("Updating Day.... %v", D.Day)
 		res = append(res, primitive.E{Key: "day", Value: D.Day})
@@ -89,17 +97,8 @@ func (D *DateOfBirth) GetDateOfBirth() primitive.D {
 	return res
 }
 
-func (D *DateOfBirth) ToMap() map[string]interface{} {
-	return map[string]interface{}{
-		"day":   D.Day,
-		"month": D.Month,
-		"year":  D.Year,
-	}
-}
-
-func (A *Address) GetAddress() primitive.D {
+func (A *Address) GetAddressAsBsonDocument() primitive.D {
 	var res primitive.D
-	log.Printf("Address: %v", A)
 	if A.Street != "" {
 		log.Printf("Updating Street.... %v", A.Street)
 		res = append(res, primitive.E{Key: "street", Value: A.Street})
@@ -123,6 +122,14 @@ func (A *Address) GetAddress() primitive.D {
 	return res
 }
 
+func (D *DateOfBirth) ToMap() map[string]interface{} {
+	return map[string]interface{}{
+		"day":   D.Day,
+		"month": D.Month,
+		"year":  D.Year,
+	}
+}
+
 func (A *Address) ToMap() map[string]interface{} {
 	return map[string]interface{}{
 		"street":  A.Street,
@@ -130,5 +137,13 @@ func (A *Address) ToMap() map[string]interface{} {
 		"state":   A.State,
 		"zip":     A.Zip,
 		"country": A.Country,
+	}
+}
+
+func (B *BaseObject) ToMap() map[string]interface{} {
+	return map[string]interface{}{
+		"base_id":    B.BaseID,
+		"created_at": B.CreatedAt,
+		"updated_at": B.UpdatedAt,
 	}
 }

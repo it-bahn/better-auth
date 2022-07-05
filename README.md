@@ -18,22 +18,27 @@ This project is a SaaS running in a serverless envoirment in google cloud platfo
 ## What's Inside
 
 - Pure Golang
-- RestApi only in net/http and a third party jwt library
+- RestApi only using standard go packages
 - Mongo Golang Driver 
+- [crypto/bcrypt](https://golang.org/x/crypto/bcrypt) for password hashing
 - Boilerplate golang mongo CRUD 
 - Dockerfile
 - CI/CD to Google Cloud Run
 
-## TODO's
-
-- Add JWT AUTH
-- Add User Login Sessions 
+## How Robust is This Service
+- Not using a Relational DB, but a MongoDB
+- Not using a JWT,but session management system
+- Can not register with the same email twice
+- All fields are validated using Regex expressions
+- All HTTP request errors are handled using a custom error handler
+- All HTTP request are logged using a custom logger
+- All User Endpoints are inaccessible if the user logs out
 
 ## Live demo
 
 [Live Api Endpoints](https://techonomy-labs-o2k3wv2fsq-uc.a.run.app/api/v1/)
 
-[Documentation](https://documenter.getpostman.com/view/21725756/UzJETKie)
+[Documentation](https://documenter.getpostman.com/view/21725756/UzJHRdXy)
 
 [Join The Support Team](https://app.getpostman.com/join-team?invite_code=40a4a16810b9f88648390722e98b8e79)
 

@@ -1,6 +1,7 @@
-package models
+package users
 
 import (
+	"better-auth/internal/models"
 	"better-auth/utils"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"log"
@@ -8,7 +9,7 @@ import (
 
 type User struct {
 	// Base
-	Base                    BaseObject         `json:"base_object,omitempty" bson:"base_object,omitempty"`
+	Base                    models.BaseObject  `json:"base_object,omitempty" bson:"base_object,omitempty"`
 	UserId                  primitive.ObjectID `json:"user_id,omitempty" bson:"user_id,omitempty"`
 	ValidatorEmailSignIn    string             `json:"validator_email,omitempty" bson:"validator_email,omitempty"`
 	ValidatorUserNameSignIn string             `json:"validator_username,omitempty" bson:"validator_username,omitempty"`
@@ -19,9 +20,9 @@ type User struct {
 	Email     string `json:"email,omitempty,required" bson:"email,omitempty,required"`
 	Password  string `json:"password,omitempty,required" bson:"password,omitempty,required"`
 	// '''''''''''''''''''''''''' OPTIONAL FIELDS FOR USER ''''''''''''''''''''''''''
-	Telephone   string      `json:"telephone,omitempty" bson:"telephone,omitempty"`
-	Address     Address     `json:"address,omitempty" bson:"address,omitempty"`
-	DateOfBirth DateOfBirth `json:"date_of_birth,omitempty" bson:"date_of_birth,omitempty"`
+	Telephone   string             `json:"telephone,omitempty" bson:"telephone,omitempty"`
+	Address     models.Address     `json:"address,omitempty" bson:"address,omitempty"`
+	DateOfBirth models.DateOfBirth `json:"date_of_birth,omitempty" bson:"date_of_birth,omitempty"`
 }
 
 func (u *User) IsEmptyMandatory() bool {
@@ -32,12 +33,46 @@ func (u *User) IsEmptyEntirely() bool {
 	return u.FirstName == "" && u.LastName == "" && u.UserName == "" && u.Email == "" && u.Password == "" && u.Telephone == "" && u.Address.IsEmptyEntirely() && u.DateOfBirth.IsEmptyEntirely()
 }
 
-func (U *User) GetUser() primitive.D {
+func (U *User) ToMap() map[string]interface{} {
+	return map[string]interface{}{
+		"user_id":       U.UserId,
+		"first_name":    U.FirstName,
+		"last_name":     U.LastName,
+		"user_name":     U.UserName,
+		"email":         U.Email,
+		"telephone":     U.Telephone,
+		"address":       U.Address,
+		"date_of_birth": U.DateOfBirth,
+	}
+}
+
+func (U *User) ToMapDetailed() map[string]interface{} {
+	return map[string]interface{}{
+		"base_object":        U.Base,
+		"user_id":            U.UserId,
+		"validator_email":    U.ValidatorEmailSignIn,
+		"validator_username": U.ValidatorUserNameSignIn,
+		"first_name":         U.FirstName,
+		"last_name":          U.LastName,
+		"user_name":          U.UserName,
+		"email":              U.Email,
+		"password":           U.Password,
+		"telephone":          U.Telephone,
+		"address":            U.Address,
+		"date_of_birth":      U.DateOfBirth,
+	}
+}
+
+func (U *User) GetUserAsBsonDocument() primitive.D {
 	var res primitive.D
-	log.Printf("User: %v", U)
+	res = append(res, primitive.E{Key: "base_object", Value: U.Base.GetAsBsonDocument()})
 	if U.FirstName != "" {
 		log.Printf("Updating FirstName.... %v", U.FirstName)
 		res = append(res, primitive.E{Key: "first_name", Value: U.FirstName})
+	}
+	if U.Password != "" {
+		log.Printf("Updating Password.... %v", U.Password)
+		res = append(res, primitive.E{Key: "password", Value: utils.GetHash([]byte(U.Password))})
 	}
 	if U.LastName != "" {
 		log.Printf("Updating LastName.... %v", U.LastName)
@@ -47,41 +82,17 @@ func (U *User) GetUser() primitive.D {
 		log.Printf("Updating Email.... %v", U.Email)
 		res = append(res, primitive.E{Key: "email", Value: U.Email})
 	}
-	if U.Password != "" {
-		log.Printf("Updating Password.... %v", U.Password)
-		res = append(res, primitive.E{Key: "password", Value: utils.GetHash([]byte(U.Password))})
-	}
 	if U.Telephone != "" {
-		log.Printf("Updating Telephone.... %v", U.Telephone)
-		res = append(res, primitive.E{Key: "telephone", Value: U.Telephone})
+		log.Printf("Updating Phone.... %v", U.Telephone)
+		res = append(res, primitive.E{Key: "phone", Value: U.Telephone})
 	}
-	if (DateOfBirth{}) != U.DateOfBirth {
+	if !U.DateOfBirth.IsEmptyEntirely() {
 		log.Printf("Updating DateOfBirth.... %v", U.DateOfBirth)
-		res = append(res, primitive.E{Key: "date_of_birth", Value: U.DateOfBirth.GetDateOfBirth()})
+		res = append(res, primitive.E{Key: "date_of_birth", Value: U.DateOfBirth.GetDOBAsBsonDocument()})
 	}
-	if (Address{}) != U.Address {
+	if !U.Address.IsEmptyEntirely() {
 		log.Printf("Updating Address.... %v", U.Address)
-		res = append(res, primitive.E{Key: "address", Value: U.Address.GetAddress()})
+		res = append(res, primitive.E{Key: "address", Value: U.Address.GetAddressAsBsonDocument()})
 	}
 	return res
-}
-func (U *User) CreateNewUser() {
-	U.Base.GetBaseCreated()
-	U.UserId = primitive.NewObjectID()
-	U.ValidatorEmailSignIn = utils.StringToBase64(U.Email + U.Password)
-	U.ValidatorUserNameSignIn = utils.StringToBase64(U.UserName + U.Password)
-	U.Password = utils.GetHash([]byte(U.Password))
-}
-
-func (U *User) ToMap() map[string]interface{} {
-	return map[string]interface{}{
-		"user_id":       U.UserId,
-		"first_name":    U.FirstName,
-		"last_name":     U.LastName,
-		"user_name":     U.UserName,
-		"email":         U.Email,
-		"telephone":     U.Telephone,
-		"address":       U.Address.ToMap(),
-		"date_of_birth": U.DateOfBirth.ToMap(),
-	}
 }

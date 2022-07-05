@@ -1,7 +1,6 @@
 package models
 
 import (
-	"better-auth/utils"
 	"time"
 )
 
@@ -16,24 +15,13 @@ func (r *Response) IsEmpty() bool {
 	return r.Status == "" || r.Message == "" || r.Data == nil || r.Timestamp == ""
 }
 
-func (r *Response) SetTimestamp() {
-	r.Timestamp = time.Now().Format("2006-01-02 15:04:05")
-}
-
 func CreateResponse(status string, message string, data interface{}) map[string]interface{} {
 	var response Response
 	response.Status = status
 	response.Message = message
 	response.Data = data
-	response.SetTimestamp()
+	response.Timestamp = time.Now().Format("2006-01-02 15:04:05")
 	return response.ToMap()
-}
-
-func (r *Response) CreateResponseString(status string, message string, data interface{}) string {
-	var result string
-	respmap := CreateResponse(status, message, data)
-	result = utils.MapToString(respmap)
-	return result
 }
 
 func (r *Response) ToMap() map[string]interface{} {
