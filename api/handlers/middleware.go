@@ -12,6 +12,8 @@ import (
 func AuthMiddleware(next http.Handler) http.Handler {
 	log.Printf("AuthMiddleware called")
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		header := w.Header()
+		header.Add("Access-Control-Allow-Origin", "*")
 		var response map[string]interface{}
 		var session sessions.Session
 		ctx := context.Background()
@@ -28,8 +30,11 @@ func AuthMiddleware(next http.Handler) http.Handler {
 
 func FilteredMiddleware(next http.Handler) http.Handler {
 	log.Printf("FilteredMiddleware called")
+	
 	var response map[string]interface{}
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+		header := w.Header()
+		header.Add("Access-Control-Allow-Origin", "*")
 		w.Header().Set("Content-Type", "application/json")
 		var userID = req.URL.Query().Get("id")
 		if req.Method == "GET" || req.Method == "DELETE" || req.Method == "PUT" {
