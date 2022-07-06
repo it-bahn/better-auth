@@ -17,6 +17,7 @@ func AuthMiddleware(next http.Handler) http.Handler {
 			w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
 			w.Header().Set("Access-Control-Allow-Headers", "Accept, Accept-Language, Content-Type, Authorization")
 		}
+		w.Header().Set("Access-Control-Allow-Origin", "http://localhost:8080")
 		var response map[string]interface{}
 		var session sessions.Session
 		ctx := context.Background()
@@ -41,6 +42,7 @@ func FilteredMiddleware(next http.Handler) http.Handler {
 			w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
 			w.Header().Set("Access-Control-Allow-Headers", "Accept, Accept-Language, Content-Type, Authorization")
 		}
+		w.Header().Set("Access-Control-Allow-Origin", "http://localhost:8080")
 		w.Header().Set("Content-Type", "application/json")
 		var userID = req.URL.Query().Get("id")
 		if req.Method == "GET" || req.Method == "DELETE" || req.Method == "PUT" {
