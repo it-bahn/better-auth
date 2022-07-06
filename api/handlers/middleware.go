@@ -29,7 +29,6 @@ func AuthMiddleware(next http.Handler) http.Handler {
 
 func FilteredMiddleware(next http.Handler) http.Handler {
 	log.Printf("FilteredMiddleware called")
-
 	var response map[string]interface{}
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 		EnableCors(&w)
