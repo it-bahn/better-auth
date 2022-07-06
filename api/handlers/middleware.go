@@ -32,7 +32,6 @@ func FilteredMiddleware(next http.Handler) http.Handler {
 	var response map[string]interface{}
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 		EnableCors(&w)
-		w.Header().Set("Content-Type", "application/json")
 		var userID = req.URL.Query().Get("id")
 		if req.Method == "GET" || req.Method == "DELETE" || req.Method == "PUT" {
 			if userID == "" {
