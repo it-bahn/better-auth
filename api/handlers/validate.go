@@ -114,3 +114,7 @@ func ValidateReqBody(w http.ResponseWriter, user users.User) map[string]interfac
 	res = models.CreateResponse("success", "Valid Request Body", http.StatusOK)
 	return res
 }
+
+func EnableCors(w *http.ResponseWriter) {
+	(*w).Header().Set("Access-Control-Allow-Origin", "*")
+}
