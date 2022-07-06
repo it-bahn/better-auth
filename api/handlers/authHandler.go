@@ -14,6 +14,7 @@ import (
 )
 
 func RegisterHandler(w http.ResponseWriter, req *http.Request) {
+	EnableCors(&w)
 	var response map[string]interface{}
 	var incoming users.User
 	ctx := context.Background()
@@ -21,7 +22,19 @@ func RegisterHandler(w http.ResponseWriter, req *http.Request) {
 	switch req.Method {
 	case "POST":
 		// Decode the request body into the struct.
-		_ = dec.Decode(&incoming)
+		err := dec.Decode(&incoming)
+		if err != nil {
+			response = GetErrorFromRequestBody(w, err)
+			w.WriteHeader(http.StatusBadRequest)
+			json.NewEncoder(w).Encode(response)
+			return
+		}
+		response = ValidateReqBody(w, incoming)
+		if response["status"] == "failure" {
+			json.NewEncoder(w).Encode(response)
+			w.WriteHeader(http.StatusBadRequest)
+			return
+		}
 		var startTime = time.Now()
 		response = incoming.Create(&ctx)
 		var endTime = time.Now()

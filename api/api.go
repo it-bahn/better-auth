@@ -18,11 +18,11 @@ func GetMuxAPI() *http.ServeMux {
 	mux := http.NewServeMux()
 
 	filteredUserHandler := http.HandlerFunc(handlers.UserHandler)
-	filteredRegisterHandler := http.HandlerFunc(handlers.RegisterHandler)
+	//filteredRegisterHandler := http.HandlerFunc(handlers.RegisterHandler)
 
 	mux.Handle("/api/v1/user", handlers.AuthMiddleware(handlers.FilteredMiddleware(filteredUserHandler)))
 
-	mux.Handle("/api/v1/register", handlers.FilteredMiddleware(filteredRegisterHandler))
+	mux.HandleFunc("/api/v1/register", handlers.RegisterHandler)
 	mux.HandleFunc("/api/v1/user/login", handlers.LoginHandler)
 	mux.HandleFunc("/api/v1/user/logout", handlers.LogoutHandler)
 
