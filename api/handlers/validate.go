@@ -119,9 +119,10 @@ func EnableCors(w *http.ResponseWriter, req *http.Request) {
 	if (*req).Header.Get("Origin") != "" {
 		(*w).Header().Set("Access-Control-Allow-Origin", (*req).Header.Get("Origin"))
 		(*w).Header().Set("Allow-Control-Allow-Origin", (*req).Header.Get("Origin"))
+	}else {
+		(*w).Header().Set("Access-Control-Allow-Origin", "*")
+		(*w).Header().Set("Allow-Control-Allow-Origin", "*")
 	}
-	(*w).Header().Set("Access-Control-Allow-Origin", "*")
-	(*w).Header().Set("Allow-Control-Allow-Origin", "*")
 	(*w).Header().Set("Content-Type", "application/json")
 	(*w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
 	(*w).Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
