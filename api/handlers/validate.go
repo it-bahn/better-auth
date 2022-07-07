@@ -117,7 +117,8 @@ func ValidateReqBody(w http.ResponseWriter, user users.User) map[string]interfac
 
 func EnableCors(w *http.ResponseWriter) {
 	(*w).Header().Set("Access-Control-Allow-Origin", "*")
+	(*w).Header().Set("Access-Control-Allow-Origin", "http://localhost:8080")
 	(*w).Header().Set("Content-Type", "application/json; charset=utf-8")
-	(*w).Header().Set("Access-Control-Allow-Headers", "Content-Type")
-	(*w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	(*w).Header().Set("Access-Control-Allow-Headers", "Content-Type,Authorization")
+	(*w).Header().Set("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE")
 }
