@@ -12,7 +12,7 @@ import (
 func AuthMiddleware(next http.Handler) http.Handler {
 	log.Printf("AuthMiddleware called")
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		EnableCors(w)
+		EnableCors(&w, r)
 		var response map[string]interface{}
 		var session sessions.Session
 		ctx := context.Background()
@@ -33,7 +33,7 @@ func FilteredMiddleware(next http.Handler) http.Handler {
 	log.Printf("FilteredMiddleware called")
 	var response map[string]interface{}
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-		EnableCors(w)
+		EnableCors(&w, req)
 		var userID = req.URL.Query().Get("id")
 		if req.Method == "GET" || req.Method == "DELETE" || req.Method == "PUT" {
 			if userID == "" {

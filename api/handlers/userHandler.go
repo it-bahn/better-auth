@@ -7,13 +7,8 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
-	"strings"
 	"time"
 )
-
-func SplitString(str string) []string {
-	return strings.Split(str, "/")
-}
 
 /**
  * Create a new Object

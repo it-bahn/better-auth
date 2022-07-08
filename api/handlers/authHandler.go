@@ -14,7 +14,7 @@ import (
 )
 
 func RegisterHandler(w http.ResponseWriter, req *http.Request) {
-	EnableCors(w)
+	EnableCors(&w, req)
 	var response map[string]interface{}
 	var incoming users.User
 	ctx := context.Background()
@@ -52,7 +52,7 @@ func RegisterHandler(w http.ResponseWriter, req *http.Request) {
 }
 
 func LoginHandler(w http.ResponseWriter, req *http.Request) {
-	EnableCors(w)
+	EnableCors(&w, req)
 	var response map[string]interface{}
 	var authE auth.AuthEmail
 	ctx := context.Background()
@@ -107,7 +107,7 @@ func LoginHandler(w http.ResponseWriter, req *http.Request) {
 }
 
 func LogoutHandler(w http.ResponseWriter, req *http.Request) {
-	EnableCors(w)
+	EnableCors(&w, req)
 	var response map[string]interface{}
 	var sessionID = req.URL.Query().Get("id")
 	var session sessions.Session

@@ -115,11 +115,17 @@ func ValidateReqBody(w http.ResponseWriter, user users.User) map[string]interfac
 	return res
 }
 
-func EnableCors(w http.ResponseWriter) {
-	w.Header().Add("Content-Type", "application/json")
-	w.Header().Add("Access-Control-Allow-Origin", "*")
-	w.Header().Add("Access-Control-Allow-Methods", "POST,PUT,DELETE,GET,OPTIONS")
-	//w.Header().Add("Access-Control-Allow-Credentials", "false")
-	w.Header().Add("Access-Control-Allow-Headers", "Authorization, Content-Type")
-
+func EnableCors(w *http.ResponseWriter, req *http.Request) {
+	if (*req).Method == "OPTIONS" {
+		(*w).Header().Add("Content-Type", "application/json")
+		(*w).Header().Add("Access-Control-Allow-Origin", (*req).Header.Get("Origin"))
+	} else {
+		(*w).Header().Add("Access-Control-Allow-Origin", "*")
+	}
+	(*w).Header().Add("Vary", "Origin")
+	(*w).Header().Add("Access-Control-Max-Age", "600")
+	(*w).Header().Add("Content-Type", "application/json")
+	(*w).Header().Add("Access-Control-Allow-Methods", "POST,PUT,DELETE,GET,OPTIONS")
+	(*w).Header().Add("Access-Control-Allow-Credentials", "true")
+	(*w).Header().Add("Access-Control-Allow-Headers", "Authorization,Origin, X-Requested-With, Content-Type, Accept")
 }
