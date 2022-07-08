@@ -3,7 +3,6 @@ package api
 import (
 	"better-auth/api/handlers"
 	"better-auth/configs"
-	"github.com/rs/cors"
 	"log"
 	"net/http"
 )
@@ -27,9 +26,9 @@ func GetMuxAPI() http.Handler {
 	mux.HandleFunc("/api/v1/register", handlers.RegisterHandler)
 	mux.HandleFunc("/api/v1/user/login", handlers.LoginHandler)
 	mux.HandleFunc("/api/v1/user/logout", handlers.LogoutHandler)
-	customCors := cors.New(cors.Options{
-		AllowedOrigins: []string{"http://localhost:8080,http://localhost:3000"},
-	})
-	handler := customCors.Handler(mux)
-	return handler
+	//customCors := cors.New(cors.Options{
+	//	AllowedOrigins: []string{"http://localhost:8080,http://localhost:3000"},
+	//})
+	//handler := customCors.Handler(mux)
+	return mux
 }
