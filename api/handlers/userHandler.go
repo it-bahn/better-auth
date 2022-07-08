@@ -86,6 +86,9 @@ func UserHandler(w http.ResponseWriter, req *http.Request) {
 		w.WriteHeader(http.StatusOK)
 		json.NewEncoder(w).Encode(response)
 		return
+	case "OPTIONS":
+		w.WriteHeader(http.StatusOK)
+		return
 	case req.Method:
 		response = models.CreateResponse("failure", "method not allowed", http.StatusMethodNotAllowed)
 		w.WriteHeader(http.StatusMethodNotAllowed)

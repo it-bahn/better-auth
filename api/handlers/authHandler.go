@@ -43,6 +43,9 @@ func RegisterHandler(w http.ResponseWriter, req *http.Request) {
 		w.WriteHeader(http.StatusOK)
 		json.NewEncoder(w).Encode(response)
 		return
+	case "OPTIONS":
+		w.WriteHeader(http.StatusOK)
+		return
 	case req.Method:
 		response = models.CreateResponse("failure", "method not allowed", http.StatusMethodNotAllowed)
 		w.WriteHeader(http.StatusMethodNotAllowed)
@@ -98,6 +101,9 @@ func LoginHandler(w http.ResponseWriter, req *http.Request) {
 		w.WriteHeader(http.StatusOK)
 		json.NewEncoder(w).Encode(response)
 		return
+	case "OPTIONS":
+		w.WriteHeader(http.StatusOK)
+		return
 	case req.Method:
 		response = models.CreateResponse("failure", "method not allowed", http.StatusMethodNotAllowed)
 		w.WriteHeader(http.StatusMethodNotAllowed)
@@ -121,6 +127,9 @@ func LogoutHandler(w http.ResponseWriter, req *http.Request) {
 		log.Printf("Logout Operation Took: %v NanoSeconds or %v MiliSeconds ", duration.Nanoseconds(), duration.Milliseconds())
 		w.WriteHeader(http.StatusOK)
 		json.NewEncoder(w).Encode(response)
+		return
+	case "OPTIONS":
+		w.WriteHeader(http.StatusOK)
 		return
 	case req.Method:
 		response = models.CreateResponse("failure", "method not allowed", http.StatusMethodNotAllowed)
