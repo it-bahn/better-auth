@@ -3,6 +3,7 @@ package main
 import (
 	"better-auth/api"
 	"better-auth/configs"
+	"better-auth/utils"
 	"context"
 	"flag"
 	"log"
@@ -19,7 +20,7 @@ func main() {
 
 	ctx, cancel := context.WithTimeout(context.Background(), wait)
 	defer cancel()
-
+	utils.GetCPUInformation()
 	srv := &http.Server{
 		Addr: configs.LoadConfig("url"),
 		// Good practice to set timeouts to avoid Slowloris attacks.

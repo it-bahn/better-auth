@@ -14,6 +14,7 @@ CRUD USER
 */
 
 func GetMuxAPI() *http.ServeMux {
+
 	log.Print("Initializing Rest Endpoints " + configs.Port)
 	mux := http.NewServeMux()
 
