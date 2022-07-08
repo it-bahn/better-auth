@@ -117,7 +117,6 @@ func ValidateReqBody(w http.ResponseWriter, user users.User) map[string]interfac
 
 func EnableCors(w *http.ResponseWriter, req *http.Request) {
 	if (*req).Method == "OPTIONS" {
-		(*w).Header().Add("Content-Type", "application/json")
 		(*w).Header().Add("Access-Control-Allow-Origin", (*req).Header.Get("Origin"))
 	} else {
 		(*w).Header().Add("Access-Control-Allow-Origin", "*")
