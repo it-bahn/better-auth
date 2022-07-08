@@ -35,6 +35,12 @@ func RegisterHandler(w http.ResponseWriter, req *http.Request) {
 			w.WriteHeader(http.StatusBadRequest)
 			return
 		}
+		if incoming.IsEmptyMandatory() {
+			response = models.CreateResponse("failure", "Mandatory fields are missing", http.StatusBadRequest)
+			w.WriteHeader(http.StatusBadRequest)
+			json.NewEncoder(w).Encode(response)
+			return
+		}
 		var startTime = time.Now()
 		response = incoming.Create(&ctx)
 		var endTime = time.Now()

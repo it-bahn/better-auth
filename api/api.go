@@ -19,16 +19,12 @@ func GetMuxAPI() http.Handler {
 	mux := http.NewServeMux()
 
 	filteredUserHandler := http.HandlerFunc(handlers.UserHandler)
-	//filteredRegisterHandler := http.HandlerFunc(handlers.RegisterHandler)
 
 	mux.Handle("/api/v1/user", handlers.AuthMiddleware(handlers.FilteredMiddleware(filteredUserHandler)))
 
 	mux.HandleFunc("/api/v1/register", handlers.RegisterHandler)
 	mux.HandleFunc("/api/v1/user/login", handlers.LoginHandler)
 	mux.HandleFunc("/api/v1/user/logout", handlers.LogoutHandler)
-	//customCors := cors.New(cors.Options{
-	//	AllowedOrigins: []string{"http://localhost:8080,http://localhost:3000"},
-	//})
-	//handler := customCors.Handler(mux)
+
 	return mux
 }
