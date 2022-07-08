@@ -28,7 +28,7 @@ func GetMuxAPI() http.Handler {
 	mux.HandleFunc("/api/v1/user/login", handlers.LoginHandler)
 	mux.HandleFunc("/api/v1/user/logout", handlers.LogoutHandler)
 	customCors := cors.New(cors.Options{
-		AllowedOrigins: []string{"*"},
+		AllowedOrigins: []string{"http://localhost:8080,http://localhost:3000"},
 	})
 	handler := customCors.Handler(mux)
 	return handler
