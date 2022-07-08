@@ -19,7 +19,9 @@ func AuthMiddleware(next http.Handler) http.Handler {
 		response = session.FindOne(&ctx, r.Header.Get("Authorization"))
 		// Check if the user is authenticated
 		if response["status"] == "failure" {
+			response = models.CreateResponse("failure", "User not logged in", http.StatusUnauthorized)
 			w.WriteHeader(http.StatusUnauthorized)
+			json.NewEncoder(w).Encode(response)
 			return
 		}
 		// Call the next handler
