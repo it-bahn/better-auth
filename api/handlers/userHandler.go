@@ -28,6 +28,7 @@ func UserHandler(w http.ResponseWriter, req *http.Request) {
 	dec := json.NewDecoder(req.Body)
 	// Setup the decoder and call the DisallowUnknownFields() method on it. This will cause Decode() to return a "json: unknown field ..." error
 	dec.DisallowUnknownFields()
+
 	switch req.Method {
 	case "POST":
 		// Decode the request body into the struct.
@@ -97,4 +98,5 @@ func UserHandler(w http.ResponseWriter, req *http.Request) {
 		json.NewEncoder(w).Encode(response)
 		return
 	}
+
 }
