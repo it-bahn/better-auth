@@ -3,7 +3,6 @@ package handlers
 import (
 	"better-auth/internal/models"
 	"better-auth/internal/models/sessions"
-	"better-auth/utils"
 	"context"
 	"encoding/json"
 	"log"
@@ -45,7 +44,6 @@ func FilteredMiddleware(next http.Handler) http.Handler {
 				return
 			}
 		}
-		utils.GetProcessInfo()
 		// Call the next handler
 		next.ServeHTTP(w, req)
 	})
