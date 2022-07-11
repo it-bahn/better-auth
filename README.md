@@ -3,13 +3,13 @@ This project is a SaaS running in a serverless envoirment in google cloud platfo
 <br/>
 
 
-[![Docker](https://github.com/techonomylabs/better-auth/actions/workflows/deploy-to-cloud-run.yml/badge.svg)](https://github.com/techonomylabs/better-auth/actions/workflows/deploy-to-cloud-run.yml)
-<img src="https://img.shields.io/github/workflow/status/techonomylabs/better-auth/Docker?label=GCP%20CLOUD%20RUN"/>
-<img src="https://img.shields.io/github/license/techonomylabs/better-auth" />
-<a href="https://github.com/techonomylabs/better-auth/issues">
-<img src="https://img.shields.io/github/issues/techonomylabs/better-auth" />
+[![Docker](https://github.com/it-bahn/better-auth/actions/workflows/deploy-to-cloud-run.yml/badge.svg)](https://github.com/techonomylabs/better-auth/actions/workflows/deploy-to-cloud-run.yml)
+<img src="https://img.shields.io/github/workflow/status/it-bahn/better-auth/Docker?label=GCP%20CLOUD%20RUN"/>
+<img src="https://img.shields.io/github/license/it-bahn/better-auth" />
+<a href="https://github.com/it-bahn/better-auth/issues">
+<img src="https://img.shields.io/github/issues/it-bahn/better-auth" />
 </a>
-<img src="https://img.shields.io/github/languages/count/techonomylabs/better-auth?style=flat-square"/>
+<img src="https://img.shields.io/github/languages/count/it-bahn/better-auth?style=flat-square"/>
 
 
 ## What's Inside
