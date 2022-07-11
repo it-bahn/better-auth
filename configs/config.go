@@ -23,7 +23,7 @@ func LoadConfig(flag string) string {
 	}
 	if flag == "pem" {
 		pemKey := GetEnv("MONGO_PEM_FILE")
-		uri = "mongodb+srv://cluster0.go6ph.mongodb.net/?" +
+		uri = "mongodb+srv://cluster0.rh7ld.mongodb.net/?" +
 			"authSource=%24external&authMechanism=MONGODB-X509" +
 			"&retryWrites=true&w=majority" +
 			"&tlsCertificateKeyFile="
