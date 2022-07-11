@@ -48,5 +48,5 @@ This project is a SaaS running in a serverless envoirment in google cloud platfo
 
 [Documentation](https://documenter.getpostman.com/view/21725756/UzJHRdXy)
 
-[Join The Support Team](https://app.getpostman.com/join-team?invite_code=40a4a16810b9f88648390722e98b8e79)
+[Join Us](https://app.getpostman.com/join-team?invite_code=40a4a16810b9f88648390722e98b8e79)
 
