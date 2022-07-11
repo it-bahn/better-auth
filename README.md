@@ -2,18 +2,15 @@
 This project is a SaaS running in a serverless envoirment in google cloud platform. It is a authentification service written in go lang and built with docker 
 <br/>
 
-<div align="center">       
-<img src="https://img.shields.io/github/workflow/status/techonomylabs/better-auth/Docker?label=GCP%20CLOUD%20RUN&style=for-the-badge"/>
 
 [![Docker](https://github.com/techonomylabs/better-auth/actions/workflows/deploy-to-cloud-run.yml/badge.svg)](https://github.com/techonomylabs/better-auth/actions/workflows/deploy-to-cloud-run.yml)
-
+<img src="https://img.shields.io/github/workflow/status/techonomylabs/better-auth/Docker?label=GCP%20CLOUD%20RUN"/>
 <img src="https://img.shields.io/github/license/techonomylabs/better-auth" />
 <a href="https://github.com/techonomylabs/better-auth/issues">
 <img src="https://img.shields.io/github/issues/techonomylabs/better-auth" />
 </a>
 <img src="https://img.shields.io/github/languages/count/techonomylabs/better-auth?style=flat-square"/>
 
-</div>
 
 ## What's Inside
 
@@ -26,7 +23,7 @@ This project is a SaaS running in a serverless envoirment in google cloud platfo
 - CI/CD to Google Cloud Run
 
 ## How Robust is This Service
-- Not using a Relational DB, but a NOSQL DB i.e. MongoDB
+- Using a NO/SQL DB storing json data
 - Not using a JWT,but session management system
   - at each login the user receives a newly generated session id
   - at each logout the user deletes the session id from the database
