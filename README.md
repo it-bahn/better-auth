@@ -1,7 +1,5 @@
 <h1 align="center">🎉 better-auth🎉</h1>
-This project is a SaaS running in a serverless envoirment in google cloud platform. It is a authentification service written in go lang and built with docker 
-<br/>
-
+This project is a SaaS running in a serverless envoirment in google cloud platform. It is a authentification service written in go lang and built with docker
 
 [![Docker](https://github.com/it-bahn/better-auth/actions/workflows/deploy-to-cloud-run.yml/badge.svg)](https://github.com/techonomylabs/better-auth/actions/workflows/deploy-to-cloud-run.yml)
 <img src="https://img.shields.io/github/workflow/status/it-bahn/better-auth/Docker?label=GCP%20CLOUD%20RUN"/>
@@ -14,11 +12,10 @@ This project is a SaaS running in a serverless envoirment in google cloud platfo
 
 ## What's Inside
 
-- Pure Golang
-- RestApi only using standard go packages
+- Pure Golang, rest-api only using standard go packages
+- Rest Api with [net/http](https://golang.org/pkg/net/http/)
 - CRUD using Mongo Golang Driver and Mongo Atlas Distributed Database
 - [crypto/bcrypt](https://golang.org/x/crypto/bcrypt) for password hashing
-- Rest Api with [net/http](https://golang.org/pkg/net/http/)
 - Dockerfile
 - CI/CD to Google Cloud Run
 
