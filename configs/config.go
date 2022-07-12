@@ -4,7 +4,7 @@ import "os"
 
 var (
 	Host           = GetEnv("HOST")
-	Port           = GetEnv("PORT")
+	Port           = "8080"
 	DBName         = GetEnv("DB_NAME")
 	CollectionName = GetEnv("COLLECTION_NAME")
 )

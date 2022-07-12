@@ -6,6 +6,7 @@ COPY . .
 
 RUN go mod download
 RUN go build -o main ./cmd/auth
+ADD ./cmd/auth/ /usr/local/monogo/pem
 
 EXPOSE 8080
 
