@@ -4,3 +4,4 @@ vendor/
 .git
 .idea
 .env
+cmd/auth/cert.pem
